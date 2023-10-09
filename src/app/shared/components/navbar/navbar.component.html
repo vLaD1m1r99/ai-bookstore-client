@@ -1,0 +1,54 @@
+<ng-container *ngIf="data$ | async as data">
+  <nav class="flex items-center px-5 lg:px-10 py-8">
+    <!-- Logo -->
+    <a routerLink='/'>
+      <img [src]="'assets/images/logo.png'" alt="Logo" width="150" class="w-24 lg:w-40">
+    </a>
+    <p class="hidden md:block ml-8 text-3xl font-bold text-secondary">{{ title }}</p>
+    <!-- User in the state -->
+    <div class="ml-auto flex items-center gap-7">
+      <div class="flex items-center gap-2" *ngIf="data.user">
+        <a routerLink='/favoriteBooks' class="flex items-center gap-2 pl-2 lg:px-3 lg:py-2 min-w-max">
+          <svg xmlns="http://www.w3.org/2000/svg" view-box="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path
+              d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+          </svg>
+          <p>Favorite books</p>
+        </a>
+        <a routerLink='/createBook' class="flex items-center gap-2 lg:px-3 lg:py-2 min-w-max">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          <p>Create book</p>
+        </a>
+      </div>
+      <mc-dropdown *ngIf="data.user">
+        <!-- Dropdown items -->
+        <p class="text-neutral-black font-medium text-base text-center px-2 py-2 border-b-2">{{data.user.name}}</p>
+        <a routerLink='/settings' class="w-full flex items-center gap-2 justify-center hover:bg-gray-200 px-2 py-2"
+          (click)="toggleDropdown()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" view-box="0 0 24 24" stroke-width={1.5}
+            stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+          </svg>
+          <p>Settings</p>
+        </a>
+        <button class="w-full flex items-center gap-2 justify-center hover:bg-gray-200 px-2 py-2" *ngIf="data.user"
+          (click)="signout()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" view-box="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+          </svg>
+
+          <p>Logout</p>
+        </button>
+      </mc-dropdown>
+      <!-- User not in the state -->
+      <button class="bg-primary px-5 py-2 rounded-10 text-white font-medium" *ngIf="!data.user && !isAuthRoute()"
+        (click)="signin()">Login</button>
+    </div>
+  </nav>
+</ng-container>

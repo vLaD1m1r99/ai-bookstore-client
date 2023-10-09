@@ -1,0 +1,2 @@
+<ng-container *ngIf="homeData$ | async as data">
+ <mc-book-list [books]="data.books"></mc-book-list>

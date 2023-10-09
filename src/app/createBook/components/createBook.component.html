@@ -1,0 +1,50 @@
+<!-- genre: BookGenres -->
+<ng-container *ngIf="createBookData$ | async as data">
+  <div class="flex flex-col justify-center items-center gap-8 w-full mt-8">
+    <img [src]="'assets/images/book.png'" alt="book" class="w-32 h-32">
+    <h1 class="-mt-8 text-2xl font-bold">New book</h1>
+    <form [formGroup]="form" class="flex flex-col gap-2 items-center md:ml-24" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col md:flex-row items-center gap-2">
+        <label>
+          <p class='text-neutral-black text-sm font-medium'>Book PDF</p>
+          <input type='file' #filePDFInput (change)="onAddPDFFile($event)" accept="application/pdf"
+            class='w-full text-sm leading-7 my-4 cursor-pointer' />
+        </label>
+        <label>
+          <p class='text-neutral-black text-sm font-medium'>Book Cover</p>
+          <input type='file' #fileImageInput (change)="onFileChange($event)" accept="image/*"
+            class='w-full text-sm leading-7 my-4 cursor-pointer' />
+        </label>
+      </div>
+      <div class="flex flex-col md:flex-row items-center gap-2">
+        <label>
+          <p class='text-neutral-black text-sm font-medium'>Title</p>
+          <input type='text' placeholder='example title'
+            class='w-full text-neutral-black placeholder:text-neutral-dark-gray text-sm leading-7 py-4 pl-5 pr-16 focus:outline-primary rounded-10'
+            formControlName="title" />
+        </label>
+        <label>
+          <p class='text-neutral-black text-sm font-medium'>Author</p>
+          <input type='text' placeholder='example author'
+            class='w-full text-neutral-black placeholder:text-neutral-dark-gray text-sm leading-7 py-4 pl-5 pr-16 focus:outline-primary rounded-10'
+            formControlName="author" />
+        </label>
+      </div>
+      <label class="w-full">
+        <p class='text-neutral-black text-sm font-medium'>Description</p>
+        <textarea #textArea placeholder="example description" formControlName="description"
+          class="w-full text-neutral-black py-4 px-5 placeholder:text-neutral-dark-gray text-sm leading-7 focus:outline-primary rounded-10"></textarea>
+      </label>
+      <div class='relative'>
+        <mc-backend-error-message *ngIf="fileSizeError" [backendErrors]="fileSizeError"></mc-backend-error-message>
+        <mc-backend-error-message *ngIf="data.backendErrors"
+          [backendErrors]="data.backendErrors"></mc-backend-error-message>
+      </div>
+      <button type="submit"
+        class="text-center text-white font-bold bg-primary w-36 px-5 py-2 rounded-10 mx-auto md:ml-24"
+        [disabled]="data.isSubmitting">
+        Create
+      </button>
+    </form>
+  </div>
+</ng-container>

@@ -6,15 +6,13 @@ export const signupRoutes: Route[] = [
   {
     path: '',
     component: SignupComponent,
-  },
-  {
-    path: '',
-    component: SigninComponent,
+    data: { title: 'Sign up' },
   },
 ];
 export const signinRoutes: Route[] = [
   {
     path: '',
     component: SigninComponent,
+    data: { title: 'Sign in' },
   },
 ];
