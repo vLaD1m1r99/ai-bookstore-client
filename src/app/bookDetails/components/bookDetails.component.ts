@@ -94,6 +94,13 @@ export class BookDetailsComponent {
               this.rating = rating;
               this.currentRating = ratingValue;
               this.book?.ratings?.push(rating);
+              if (this.book?.ratings) {
+                const sum = this.book.ratings.reduce(
+                  (total, rating) => total + rating.value,
+                  0
+                );
+                this.book.averageRating = sum / this.book.ratings.length;
+              }
             });
         else
           this.ratingService
@@ -107,6 +114,11 @@ export class BookDetailsComponent {
                 );
                 if (index !== -1) {
                   this.book.ratings[index] = rating;
+                  const sum = this.book.ratings.reduce(
+                    (total, rating) => total + rating.value,
+                    0
+                  );
+                  this.book.averageRating = sum / this.book.ratings.length;
                 }
               }
             });
